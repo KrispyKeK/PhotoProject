@@ -248,6 +248,18 @@ public void filter(int startRow, int startCol) {
 		  }
 	  }
   }
+  public void shift() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  int rows = pixels.length;
+	  int cols = pixels[0].length;
+	  Color[] firstColor = new Color[cols];
+	  int shiftAmount = (int)(.2 * pixels[0].length);
+	  for (int row = 0; row < rows; row++) {
+		  for (int col = 0; col < cols; col++) {
+			  pixels[row][(col + shiftAmount) % cols].setColor(pixels[row][col].getColor());
+		  }
+	  }
+  }
   public static void testGlitch() {
 	  Picture beach = new Picture("beach.jpg");
 	  beach.glitchArt();
@@ -282,9 +294,10 @@ public void filter(int startRow, int startCol) {
   public static void main(String[] args) 
   {
     Picture beach = new Picture("beach.jpg");
-    beach.glitchArt();
+    //beach.glitchArt();
+    beach.shift();
     beach.explore();
-    beach.somethingFilter(50, 30);
+    //beach.somethingFilter(50, 30);
     beach.zeroBlue();
     beach.explore();
     testGlitch();
