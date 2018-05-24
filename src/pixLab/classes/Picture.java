@@ -236,17 +236,54 @@ public void filter(int startRow, int startCol) {
     */
   public void glitchArt() {
 	  Pixel[][] pixels = this.getPixels2D();
-	  int shiftInt = (int)(.2 * pixels[0].length);
 	  int width = pixels[0].length;
-	  for (int row = 0; row < pixels.length;row++) {
-		  Color[] currentColors = new Color[pixels[0].length];
-		  for (int col = 0; col < pixels[row].length;col++) {
-			  currentColors[col] = pixels[row][col].getColor();
-		  }
-		  for (int col = 0; col < pixels[0].length;col++) {
-			  pixels[row][col].setColor(currentColors[(col+shiftInt) % width]);
-		  }
-	  }
+	  int shift = (int)(pixels[0].length * .2);
+	  int greenInt = 0;
+	  int redInt = 0;
+	  int blueInt = 0;
+	  
+	  for (int row = 0; row < pixels.length; row++)
+	  {
+		  Color [] currentColors = new Color[width];
+		  	for (int col = 0; col < pixels[row].length; col++)
+	    		{
+	    			currentColors[col] = pixels[row][col].getColor();
+	    		}
+	    		for (int col = 0; col < width; col++)
+	    		{
+	    			pixels[row][col].setColor(currentColors[(col+ shift) % width]);
+	    		}
+	   }
+	   for (int row = 25; row < 130; row++)
+	   {
+		   for (int col = 35; col < 190; col++)
+		   {
+			   redInt = pixels[row][col].getRed();
+			   blueInt = pixels[row][col].getBlue();
+			   pixels[row][col].setColor(new Color(redInt, 0, blueInt));
+			}
+		}
+	   for (int row = 200 ; row < 240; row++)
+	   {
+		   for (int col = 250; col < 300; col ++)
+		   {
+			   redInt = (int) (Math.random() * 255);
+			   blueInt = (int) (Math.random() * 255);
+			   greenInt = (int) (Math.random() * 255);
+			   pixels[row][col].setColor(new Color(redInt, greenInt, blueInt));
+			}
+		}
+		for (int row = 250 ; row < 290; row++)
+		{
+			for (int col = 100; col < 150; col ++)
+			{
+				redInt = (int) (Math.random() * 255);
+				blueInt = (int) (Math.random() * 255);
+				greenInt = (int) (Math.random() * 255);
+				pixels[row][col].setColor(new Color(redInt, greenInt, blueInt));
+			}
+		}
+
   }
   public void shift() {
 	  Pixel[][] pixels = this.getPixels2D();
@@ -259,6 +296,26 @@ public void filter(int startRow, int startCol) {
 			  pixels[row][(col + shiftAmount) % cols].setColor(pixels[row][col].getColor());
 		  }
 	  }
+  }
+  public void classFilter() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for (int row = 0; row < 20; row++) {
+		  for (int col = 0; col < pixels[0].length;col++) {
+			  pixels[row][col].setColor(pixels[row+20][col].getColor()); 
+		  }
+	  }
+	  addMessage("JUAN DELACRUZ - AM CLASS - CLASS FILTER",100,100,Color.RED);
+	  write("JuanDelacruzClassFilter.jpg");
+  }
+  public void blueGet() {
+	  Pixel[][] pixels = this.getPixels2D();
+	  int row = pixels.length;
+	  int col = pixels[0].length;
+	  Color[][] blueColor = new Color[row][col];
+	  for(int indexX = 0; indexX < row; indexX++) {
+		  
+	  }
+	  
   }
   public static void testGlitch() {
 	  Picture beach = new Picture("beach.jpg");
@@ -295,12 +352,14 @@ public void filter(int startRow, int startCol) {
   {
     Picture beach = new Picture("beach.jpg");
     //beach.glitchArt();
-    beach.shift();
+    //beach.shift();
     beach.explore();
     //beach.somethingFilter(50, 30);
-    beach.zeroBlue();
+    ///Users/jdel8359/Downloads/originalArt.pngbeach.zeroBlue();
+    beach.classFilter();
     beach.explore();
-    testGlitch();
+    //testGlitch();
+ 
   }
   
 } // this } is the end of class Picture, put all new methods before this
